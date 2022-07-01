@@ -1,4 +1,5 @@
 import axios from 'axios'
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { AccountHeader } from '../components/Account/AccountHeader'
 import { AccountOrderList } from '../components/Account/AccountOrderList'
@@ -65,9 +66,9 @@ export const MyAccount = () => {
 					<div className="account-info">
 						<div className="category-container">
 							{accountCategories.map((item, i) => (
-								<>
+								<React.Fragment key={i}>
 									<h1 className={selected === i ? 'account-category account-category-active' : "account-category"} onClick={() => toggle(i)}>{item.title} </h1>
-								</>
+								</React.Fragment>
 							))}
 						</div>
 						{data2.map((item, i) => (
