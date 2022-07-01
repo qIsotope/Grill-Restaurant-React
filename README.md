@@ -1,3 +1,5 @@
+Site for restaurant on React + TypeScript, Redux toolkit
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
