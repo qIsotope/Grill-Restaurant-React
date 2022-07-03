@@ -1,12 +1,15 @@
 
+import { useAppDispatch } from '../../hooks/redux-hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { IAccountOrderItem } from '../../types/accountBlock';
+import { deleteItem } from '../../utils/deleteItemsFromAcc';
 
 
 
 
 export const AccountOrderItem = (props: IAccountOrderItem) => {
 	const { email } = useAuth()
+	const dispatch = useAppDispatch()
 	return (
 		<div className="account-review-item">
 			<div className="single-item-header">
@@ -16,7 +19,7 @@ export const AccountOrderItem = (props: IAccountOrderItem) => {
 				<div className="single-item-date">
 					{email === props.userEmail &&
 						<div style={{ justifyContent: 'end' }}>
-							<div onClick={() => { props.delete(props.id, props.type, props.setOrders) }} className="singleitem-delete">
+							<div onClick={() => { deleteItem(props.id, props.type, props.setOrders, email, dispatch) }} className="singleitem-delete">
 								<span>x</span>
 							</div>
 						</div>
@@ -27,7 +30,7 @@ export const AccountOrderItem = (props: IAccountOrderItem) => {
 			<div className="account-review-text nohover">
 				Items: <br /> <br /> {props.items}
 			</div>
-			
+
 		</div>
 	)
 }

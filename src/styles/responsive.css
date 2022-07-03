@@ -257,6 +257,10 @@
 	.account-info {
 		width: 90%;
 	}
+
+	.account-image {
+		width: 80%;
+	}
 }
 
 /* header section */

@@ -2176,3 +2176,43 @@ body {
 .account-category-active {
 	background-color: mediumvioletred;
 }
+
+.upload-photo {
+	border: 1px solid teal;
+}
+
+.account-upload {
+	margin-top: 20px;
+	display: flex;
+	gap: 10px;
+}
+
+.choose-img {
+	display: inline-block;
+	font-weight: 700;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid transparent;
+	padding: 7px 15px;
+	font-size: 17px;
+	border-radius: 5px;
+	user-select: none;
+	color: #0094df;
+	background-color: #fff;
+	border-color: #0094df;
+}
+
+.upload-img {
+	display: inline-block;
+	font-weight: 700;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid transparent;
+	padding: 7px 15px;
+	font-size: 17px;
+	border-radius: 5px;
+	user-select: none;
+	color: #0094df;
+	background-color: #fff;
+	border-color: #0094df;
+}

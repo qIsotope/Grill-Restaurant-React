@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
 import { AccountHeader } from '../components/Account/AccountHeader'
 import { AccountOrderList } from '../components/Account/AccountOrderList'
@@ -12,7 +12,9 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { useAuth } from '../hooks/useAuth'
 import { hideLoader, showLoader } from '../redux/slices/loaderSlice'
 import { IOrderFetch, IReservationFetch, IAccountReviewList } from '../types/accountBlock'
-import { fetchItems } from '../utils/funcs'
+import { fetchAvatar } from '../utils/fetchAvatar'
+import { fetchItems } from '../utils/fetchItems'
+import { AccountImage } from './AccountImage'
 
 
 export const MyAccount = () => {
@@ -24,13 +26,14 @@ export const MyAccount = () => {
 	const [reviews, setReviews] = useState<IAccountReviewList[]>([])
 	const [selected, setSelected] = useState(0)
 
+	const [fetchAva, setFetchAva] = useState('')
 
 	useEffect(() => {
 		fetchItems(`https://62965300810c00c1cb73a6b4.mockapi.io/comments?email=${email}`, setReviews, '', false)
 		fetchItems('https://62965300810c00c1cb73a6b4.mockapi.io/orders?type=order', setOrders, email, true)
 		fetchItems('https://62965300810c00c1cb73a6b4.mockapi.io/orders?type=reservation', setReservations, email, true)
+		fetchAvatar(email, setFetchAva)
 	}, [])
-
 	const deleteItem = async (id: string, type: string, setItems: any) => {
 		dispatch(showLoader())
 		await axios.delete('https://62965300810c00c1cb73a6b4.mockapi.io/orders/' + id)
@@ -39,9 +42,6 @@ export const MyAccount = () => {
 		dispatch(hideLoader())
 	}
 
-	const toggle = (id: number) => {
-		setSelected(id)
-	}
 	const data2 = [
 		{
 			content: <AccountOrderList orders={orders} delete={deleteItem} setOrders={setOrders} />,
@@ -50,9 +50,11 @@ export const MyAccount = () => {
 			content: <AccountReservationList reservations={reservations} delete={deleteItem} setReservations={setReservations} />,
 		},
 		{
-			content: <AccountReviewList reviews={reviews} setReviews={setReviews} delete={deleteItem} />
+			content: <AccountReviewList reviews={reviews} setReviews={setReviews} />
 		},
 	]
+	
+
 
 	return (
 		<section className="account">
@@ -60,14 +62,12 @@ export const MyAccount = () => {
 				<SectionLabel title={'Your Account'} subtitle='Account' />
 				<AccountHeader email={email} />
 				<div className="account-block">
-					<div className="account-image">
-						<img src="../images/account.png" alt="" />
-					</div>
+					<AccountImage fetchAva={fetchAva} />
 					<div className="account-info">
 						<div className="category-container">
 							{accountCategories.map((item, i) => (
 								<React.Fragment key={i}>
-									<h1 className={selected === i ? 'account-category account-category-active' : "account-category"} onClick={() => toggle(i)}>{item.title} </h1>
+									<h1 className={selected === i ? 'account-category account-category-active' : "account-category"} onClick={() => setSelected(i)}>{item.title} </h1>
 								</React.Fragment>
 							))}
 						</div>

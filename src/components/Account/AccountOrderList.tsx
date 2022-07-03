@@ -1,3 +1,4 @@
+import { useAuth } from '../../hooks/useAuth'
 import { IAccountOrderList } from '../../types/accountBlock'
 import { AccountOrderItem } from './AccountOrderItem'
 
@@ -5,6 +6,7 @@ import { AccountOrderItem } from './AccountOrderItem'
 
 
 export const AccountOrderList = (props: IAccountOrderList) => {
+	const {email} = useAuth()
 	if (props.orders.length === 0) {
 		return (
 			<>
